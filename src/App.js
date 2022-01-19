@@ -1,93 +1,50 @@
-import logo from "./logo.svg";
 import "./App.css";
 import React, { useState } from "react";
+import UserForm from "./components/UserForm";
+import UserList from "./components/UserList";
 
-// class App extends React.Component {
-//   constructor() {
-//     super();
+// const App = () => {
+//   const [users, setUsers] = useState([
+//     { name: "Tony", email: "tony@email.com" },
+//     { name: "Joe", email: "joe@email.com" },
+//     { name: "Comfort", email: "comfort@email.com" },
+//   ]);
 
-//     this.state = {
-//       number: 2,
-//       isHungry: true,
-//     };
-//   }
-
-//   addOne = () => {
-//     this.setState({ number: this.state.number * 5, isHungry: false });
-//   };
-
-//   render() {
-//     console.log(this.state.isHungry);
-//     return (
-//       <div className="App">
-//         <h1>{this.state.number}</h1>
-//         <h3>{this.state.isHungry}</h3>
-//         <button onClick={this.addOne}>Add 1</button>
-//         <button>Remove 1</button>
-//       </div>
-//     );
-//   }
-// }
-
-// function App() {
-//   const [number, setNumber] = React.useState(10);
-//   const [isHungry, setIsHungry] = React.useState(true);
-
-//   const addOne = () => {
-//     setNumber(number + 1);
+//   const addUser = (newUser) => {
+//     setUsers([...users, newUser]);
 //   };
 
 //   return (
-//     <div className="App">
-//       <h1>{number}</h1>
-//       <button onClick={addOne}>Add one</button>
-//       <button>Remove one</button>
+//     <div>
+//       <UserForm addUser={addUser} />
+//       <UserList users={users} />
 //     </div>
 //   );
-// }
+// };
 
 class App extends React.Component {
   constructor() {
     super();
 
     this.state = {
-      email: "",
-      password: "",
+      users: [
+        { name: "Tony", email: "tony@email.com" },
+        { name: "Joe", email: "joe@email.com" },
+        { name: "Comfort", email: "comfort@email.com" },
+      ],
     };
   }
 
-  handleEmailChange = (event) => {
-    this.setState({ email: event.target.value });
-  };
-
-  handlePasswordChange = (event) => {
-    this.setState({ password: event.target.value });
-  };
-
-  handleSubmit = (event) => {
-    event.preventDefault();
-    console.log(this.state.email);
+  addUser = (newUser) => {
+    this.setState({ users: [...this.state.users, newUser] });
   };
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
-        <label>Email</label>
-        <input
-          type="email"
-          value={this.state.email}
-          onChange={this.handleEmailChange}
-        />
-
-        <label>Password</label>
-        <input
-          type="password"
-          value={this.state.password}
-          onChange={this.handlePasswordChange}
-        />
-
-        <button type="submit">Submit</button>
-      </form>
+      <div>
+        <UserForm addUser={this.addUser} />
+        <UserList users={this.state.users} />
+      </div>
     );
   }
 }
