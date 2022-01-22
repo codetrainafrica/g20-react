@@ -3,6 +3,7 @@ import React from "react";
 const UserList = (props) => {
   return (
     <div>
+      {/* loops through the users array and displays a div containing each users' name and email */}
       {props.users.map((user, index) => {
         return (
           <div key={index}>
