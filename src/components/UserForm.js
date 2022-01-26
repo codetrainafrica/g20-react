@@ -16,14 +16,17 @@ const UserForm = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    //new user object with unique id, name and email
     let newUser = {
       id: uuid(),
       name: name,
       email: email,
     };
 
+    //add new user to users state array
     props.addUser(newUser);
 
+    //reset form
     setName("");
     setEmail("");
   };

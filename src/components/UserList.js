@@ -5,8 +5,10 @@ const UserList = (props) => {
   return (
     <div>
       <h1>List of users</h1>
+      {/* map through users array and return an Item component for each user */}
       {props.users.map((user, index) => {
         return (
+          // pass in the user object and the editUser and deleteUser functions
           <Item
             key={index}
             user={user}

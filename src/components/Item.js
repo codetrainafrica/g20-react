@@ -2,15 +2,20 @@ import React, { useState } from "react";
 import { Button, Modal } from "react-bootstrap";
 
 const Item = (props) => {
+  //boolean state to control the modal
   const [isShowing, setIsShowing] = useState(false);
 
+  //variables to hold the user's id, name and email
   const id = props.user.id;
   const username = props.user.name;
   const useremail = props.user.email;
 
+  //user name state for editing
   const [name, setName] = useState(username);
+  //user email state for editing
   const [email, setEmail] = useState(useremail);
 
+  //function to handle editing user details
   const handleEdit = () => {
     let editedUser = {
       name: name,
@@ -18,7 +23,9 @@ const Item = (props) => {
       id: id,
     };
 
+    //call the editUser function from the parent component and pass in the user's id and the new user object
     props.editUser(id, editedUser);
+    //close the modal
     setIsShowing(false);
   };
 
