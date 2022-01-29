@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { v4 as uuid } from "uuid";
 
 const UserForm = (props) => {
   //state to hold the value of name input
@@ -14,10 +15,11 @@ const UserForm = (props) => {
         //prevents the page from reloading when the form is submitted
         e.preventDefault();
 
-        //variable to hold the newly created user from the input
+        //variable to hold the newly created user from the input with the id, name and email values
         let newUser = {
           name: name,
           email: email,
+          id: uuid(),
         };
 
         //calls the addUser function which was passed as props to the UserForm component

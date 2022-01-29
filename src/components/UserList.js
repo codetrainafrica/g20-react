@@ -1,15 +1,18 @@
 import React from "react";
+import User from "./User";
 
 const UserList = (props) => {
   return (
     <div>
-      {/* loops through the users array and displays a div containing each users' name and email */}
+      {/* map through the users state array and display each user in the User component */}
       {props.users.map((user, index) => {
         return (
-          <div key={index}>
-            <h1>{user.name}</h1>
-            <h3>{user.email}</h3>
-          </div>
+          <User
+            key={index}
+            user={user}
+            deleteUser={props.deleteUser}
+            editUser={props.editUser}
+          />
         );
       })}
     </div>
