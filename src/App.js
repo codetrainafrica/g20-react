@@ -4,6 +4,7 @@ import UserForm from "./components/UserForm";
 import UserList from "./components/UserList";
 //uuid package which generates unique id
 import { v4 as uuid } from "uuid";
+import Router from "./Router";
 
 const App = () => {
   //users state array which contains 3 default users
