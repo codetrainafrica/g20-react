@@ -13,6 +13,7 @@ const UserForm = (props) => {
 
     //create a new user object with the name and email state variables
     let newUser = {
+      //generate a new id for the user
       id: uuid(),
       name: name,
       email: email,

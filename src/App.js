@@ -17,20 +17,26 @@ const App = () => {
     setUsers([...users, newUser]);
   };
 
+  //deleteUser function to delete a user from the users array
   const deleteUser = (id) => {
+    //filter out the user with the id that was passed in
     const filteredUsers = users.filter((user) => {
       if (id !== user.id) return user;
     });
 
+    //set the users state to the filtered users array
     setUsers(filteredUsers);
   };
 
+  //editUser function to edit a user from the users array
   const editUser = (id, updatedUser) => {
+    //filter the users array and return a new array with the updated user
     const updatedUsers = users.map((user) => {
       if (id === user.id) return updatedUser;
       else return user;
     });
 
+    //set the users state to the updated users array
     setUsers(updatedUsers);
   };
 
@@ -38,7 +44,7 @@ const App = () => {
     <div>
       {/* UserForm component is passed the addUser function as a prop */}
       <UserForm addUser={addUser} />
-      {/* UserList component is passed the users array as a prop */}
+      {/* UserList component is passed the users array and the deleteUser and editUser functions as props */}
       <UserList users={users} editUser={editUser} deleteUser={deleteUser} />
     </div>
   );
