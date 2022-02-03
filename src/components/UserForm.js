@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { v4 as uuid } from "uuid";
 
 const UserForm = (props) => {
   //name state variable for the name input
@@ -12,6 +13,7 @@ const UserForm = (props) => {
 
     //create a new user object with the name and email state variables
     let newUser = {
+      id: uuid(),
       name: name,
       email: email,
     };

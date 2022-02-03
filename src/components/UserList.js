@@ -1,4 +1,5 @@
 import React from "react";
+import Item from "./Item";
 
 const UserList = (props) => {
   return (
@@ -7,10 +8,12 @@ const UserList = (props) => {
       {/* loop through the users array and display each user's name and email */}
       {props.users.map((user, index) => {
         return (
-          <div key={index}>
-            <h1>{user.name}</h1>
-            <h3>{user.email}</h3>
-          </div>
+          <Item
+            key={index}
+            user={user}
+            editUser={props.editUser}
+            deleteUser={props.deleteUser}
+          />
         );
       })}
     </div>
