@@ -52,13 +52,25 @@ import axios from "axios";
 class Home extends React.Component {
   constructor() {
     super();
-    this.state = { number: 0, posts: [] };
+    this.state = { number: 0, posts: [], query: "avengers" };
   }
 
   getData = async () => {
     try {
+      // const response = await axios.get(
+      //   "https://api.nytimes.com/svc/movies/v2/reviews/search.json?query=" +
+      //     this.state.query +
+      //     "&api-key=yourkey"
+      // );
+
       const response = await axios.get(
-        "http://jsonplaceholder.typicode.com/posts"
+        "https://api.nytimes.com/svc/movies/v2/reviews/search.json?",
+        {
+          params: {
+            query: this.state.query,
+            "api-key": "yourkey",
+          },
+        }
       );
 
       this.setState({ posts: response.data });
@@ -89,6 +101,8 @@ class Home extends React.Component {
       <div>
         <h1>Home</h1>
         <p>{this.state.number}</p>
+
+        <input />
 
         {/* <Button
           variant="primary"
