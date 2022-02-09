@@ -1,17 +1,33 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
-export default function Contact() {
-  const users = ["Kofi", "ama", "Kojo", "Adwoa"];
+class Contact extends React.Component {
+  componentDidMount() {
+    console.log("Contact mounted");
+  }
 
-  const navigate = useNavigate();
-
-  return (
-    <div>
-      <h1>Contact</h1>
-      {users.map((user, index) => {
-        return <h1 onClick={() => navigate(`/details/${index}`)}>{user}</h1>;
-      })}
-    </div>
-  );
+  render() {
+    return (
+      <div>
+        <h1>Contact</h1>
+      </div>
+    );
+  }
 }
+
+export default Contact;
+
+// export default function Contact() {
+//   const users = ["Kofi", "ama", "Kojo", "Adwoa"];
+
+//   const navigate = useNavigate();
+
+//   return (
+//     <div>
+//       <h1>Contact</h1>
+//       {users.map((user, index) => {
+//         return <h1 onClick={() => navigate(`/details/${index}`)}>{user}</h1>;
+//       })}
+//     </div>
+//   );
+// }
