@@ -1,7 +1,9 @@
+import { v4 as uuid } from "uuid";
+
 const initialState = {
   users: [
-    { name: "John", email: "john@email.com", gen: 1 },
-    { name: "Kofi", email: "kofu@email.com", gen: 2 },
+    { name: "John", email: "john@email.com", gen: 1, id: uuid() },
+    { name: "Kofi", email: "kofu@email.com", gen: 2, id: uuid() },
   ],
 
   students: [],
@@ -14,10 +16,19 @@ const usersReducer = (state = initialState, action) => {
       return { ...state, users: [...state.users, action.payload] };
 
     case "EDIT_USER":
-      return state;
+      const editedUsers = state.users.map((user) => {
+        if (user.id == action.payload.id) return action.payload.userData;
+        return user;
+      });
+
+      return { ...state, users: editedUsers };
 
     case "DELETE_USER":
-      return state;
+      const filteredUsers = state.users.filter((user) => {
+        if (user.id != action.payload) return user;
+      });
+
+      return { ...state, users: filteredUsers };
 
     default:
       return state;
