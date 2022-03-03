@@ -1,5 +1,8 @@
 const initialState = {
-  users: [],
+  users: [
+    { name: "Kofi", email: "kofi@email.com" },
+    { name: "Kwame", email: "kwame@email.com" },
+  ],
   students: [],
   number: 0,
   isLoggedIn: false,
@@ -9,7 +12,7 @@ const initialState = {
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case "ADD_USER":
-    //add user to users state in the store
+      return { ...state, users: [...state.users, action.payload] };
 
     case "EDIT_USER":
     //edit user in users state in store
