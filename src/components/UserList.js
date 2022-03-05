@@ -1,5 +1,6 @@
 import React from "react";
 import { connect, useSelector } from "react-redux";
+import User from "./User";
 
 // function UserList(props) {
 //   const users = props.users;
@@ -35,13 +36,7 @@ function UserList() {
   return (
     <div>
       {users.map((user, index) => {
-        return (
-          <div key={`${user.name}-${index}`}>
-            <h1>{user.name}</h1>
-            <h2>{user.email}</h2>
-            <h4>{user.gen}</h4>
-          </div>
-        );
+        return <User key={`${index}-${user.name}`} user={user} />;
       })}
     </div>
   );

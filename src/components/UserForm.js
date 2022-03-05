@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { connect, useDispatch } from "react-redux";
 import { addUserAction, changeIsLoggedIn } from "../actions/actions";
-
+import { v4 as uuid } from "uuid";
 // function UserForm(props) {
 //   const [email, setEmail] = useState("");
 //   const [name, setName] = useState("");
@@ -64,6 +64,7 @@ function UserForm() {
     e.preventDefault();
 
     let newUser = {
+      id: uuid(),
       name: name,
       email: email,
       gen: gen,
