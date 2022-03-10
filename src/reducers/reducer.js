@@ -1,7 +1,10 @@
+import { v4 as uuid } from "uuid";
+
 const initialState = {
   users: [
-    { name: "Kofi", email: "kofi@email.com" },
-    { name: "Kwame", email: "kwame@email.com" },
+    { id: uuid(), name: "Kofi", email: "kofi@email.com" },
+    { id: uuid(), name: "Kwame", email: "kwame@email.com" },
+    { id: uuid(), name: "Mary", email: "kwame@email.com" },
   ],
   students: [],
   number: 0,
@@ -15,10 +18,19 @@ const reducer = (state = initialState, action) => {
       return { ...state, users: [...state.users, action.payload] };
 
     case "EDIT_USER":
-    //edit user in users state in store
+      const users = state.users.map((user) => {
+        if (user.id === action.payload.id) return action.payload.newDetails;
+        return user;
+      });
+
+      return { ...state, users: users };
 
     case "DELETE_USER":
-    //delete users in users state in the store
+      const filteredUsers = state.users.filter((user) => {
+        if (user.id !== action.payload) return user;
+      });
+
+      return { ...state, users: filteredUsers };
 
     default:
       return state;
