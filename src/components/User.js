@@ -1,32 +1,37 @@
 import React, { useState } from "react";
 import { Button, Modal } from "react-bootstrap";
-import { deleteUserAction, editUserAction } from "../actions/actions";
-import { useDispatch } from "react-redux";
+import firebase from "../firebase/config";
 
 const User = (props) => {
   const user = props.user;
-  const dispatch = useDispatch();
-
   const [isShowing, setIsShowing] = useState(false);
   const [name, setName] = useState(user.name);
   const [email, setEmail] = useState(user.email);
   const [gen, setGen] = useState(user.gen);
 
-  const handleDelete = () => {
-    dispatch(deleteUserAction(user.id));
+  const handleDelete = async () => {
+    try {
+      firebase.firestore().collection("users").doc(user.id).delete();
+    } catch (error) {
+      console.log(error);
+    }
   };
 
-  const handleSubmit = () => {
-    let userData = {
-      id: user.id,
-      name: name,
-      email: email,
-      gen: gen,
-    };
+  const handleSubmit = async () => {
+    try {
+      let userData = {
+        id: user.id,
+        name: name,
+        email: email,
+        gen: gen,
+      };
 
-    dispatch(editUserAction(user.id, userData));
+      firebase.firestore().collection("users").doc(user.id).update(userData);
 
-    handleClose();
+      handleClose();
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleClose = () => {
