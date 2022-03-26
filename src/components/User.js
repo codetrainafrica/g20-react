@@ -1,12 +1,9 @@
 import React, { useState } from "react";
 import { Button, Modal } from "react-bootstrap";
-import { connect, useDispatch } from "react-redux";
-import { deleteUserAction, editUserAction } from "../actions/actions";
+import firebase from "../firebase/config";
 
 const User = (props) => {
   const { user } = props;
-
-  const dispatch = useDispatch();
 
   const [show, setShow] = useState(false);
   const [name, setName] = useState(user.name);
@@ -23,9 +20,13 @@ const User = (props) => {
       id: user.id,
     };
 
-    dispatch(editUserAction(user.id, newDetails));
+    firebase.firestore().collection("users").doc(user.id).update(newDetails);
 
     handleClose();
+  };
+
+  const handleDelete = () => {
+    firebase.firestore().collection("users").doc(user.id).delete();
   };
 
   return (
@@ -34,7 +35,7 @@ const User = (props) => {
       <h1>{user.email}</h1>
       <h1>{user.gen}</h1>
       <Button onClick={() => setShow(true)}>Edit</Button>
-      <Button onClick={() => props.deleteUser(user.id)} variant="danger">
+      <Button onClick={() => handleDelete()} variant="danger">
         Delete
       </Button>
 
@@ -75,9 +76,4 @@ const User = (props) => {
   );
 };
 
-//aka mapDispatchToProps
-const sendActionAsProps = {
-  deleteUser: deleteUserAction,
-};
-
-export default connect(null, sendActionAsProps)(User);
+export default User;
