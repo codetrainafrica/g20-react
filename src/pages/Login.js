@@ -2,12 +2,26 @@ import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import firebase from "../firebase/config";
+import firebase2 from "firebase";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const navigate = useNavigate();
+
+  const signInWithGoogle = async (e) => {
+    try {
+      e.preventDefault();
+
+      const provider = new firebase2.auth.GoogleAuthProvider();
+      firebase.auth().signInWithPopup(provider);
+
+      navigate("/", { replace: true });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const handleLogin = async (e) => {
     try {
@@ -67,6 +81,9 @@ const Login = () => {
           </Form.Group>
           <Button variant="primary" type="submit" onClick={handleLogin}>
             Submit
+          </Button>
+          <Button variant="primary" type="submit" onClick={signInWithGoogle}>
+            Sign in with Google
           </Button>
 
           <p>
