@@ -4,7 +4,7 @@ import { Navigate } from "react-router-dom";
 import { connect } from "react-redux";
 
 const ProtectedRoute = ({ children, user }) => {
-  if (user) return <Navigate to="/login" replace={true} />;
+  if (!user) return <Navigate to="/login" replace={true} />;
 
   return children;
 };

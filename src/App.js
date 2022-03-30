@@ -10,6 +10,7 @@ function App(props) {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         //set user state to user details
+        console.log(user);
         props.setUserDetails(user);
       } else {
         //set user state to null
