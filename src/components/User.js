@@ -1,12 +1,9 @@
 import React from "react";
 import { Button, Modal } from "react-bootstrap";
-import { useDispatch } from "react-redux";
-import { deleteUserAction, editUserAction } from "../actions/actions";
+import firebase from "../firebase/config";
 
 const User = (props) => {
   const user = props.user;
-
-  const dispatch = useDispatch();
 
   const [show, setShow] = React.useState(false);
 
@@ -15,8 +12,6 @@ const User = (props) => {
 
   const handleClose = () => setShow(false);
 
-  console.log(user);
-
   const handleSubmit = () => {
     let updatedUser = {
       id: user.id,
@@ -24,9 +19,13 @@ const User = (props) => {
       email: email,
     };
 
-    dispatch(editUserAction(user.id, updatedUser));
+    firebase.firestore().collection("users").doc(user.id).update(updatedUser);
 
     handleClose();
+  };
+
+  const handleDelete = () => {
+    firebase.firestore().collection("users").doc(user.id).delete();
   };
 
   return (
@@ -35,10 +34,7 @@ const User = (props) => {
         <h1>{user.name}</h1>
         <h3>{user.email}</h3>
         <Button onClick={() => setShow(true)}>Edit</Button>
-        <Button
-          variant="danger"
-          onClick={() => dispatch(deleteUserAction(user.id))}
-        >
+        <Button variant="danger" onClick={handleDelete}>
           Delete
         </Button>
       </div>

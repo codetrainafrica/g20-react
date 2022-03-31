@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { v4 as uuid } from "uuid";
-import { connect, useDispatch } from "react-redux";
-import { addUserAction } from "../actions/actions";
+import firebase from "../firebase/config";
 
 //the short way
 // const UserForm = () => {
@@ -49,21 +48,23 @@ import { addUserAction } from "../actions/actions";
 
 // //the long way
 const UserForm = (props) => {
-  console.log(props);
-
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    const id = uuid();
+
     let newUser = {
-      id: uuid(),
+      id: id,
       name: name,
       email: email,
     };
 
-    props.createUser(newUser);
+    firebase.firestore().collection("users").doc(id).set(newUser);
+    setName("");
+    setEmail("");
   };
 
   return (
@@ -89,9 +90,4 @@ const UserForm = (props) => {
   );
 };
 
-//aka mapDispatchToProps
-const sendActionAsProps = {
-  createUser: addUserAction,
-};
-
-export default connect(null, sendActionAsProps)(UserForm);
+export default UserForm;
