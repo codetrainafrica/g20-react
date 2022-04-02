@@ -4,7 +4,7 @@ import User from "./User";
 
 const UserList = () => {
   const users = useSelector((state) => {
-    return state.users;
+    return state.usersReducer.users;
   });
 
   return (

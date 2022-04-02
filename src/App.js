@@ -2,10 +2,21 @@ import React, { useEffect } from "react";
 import UserForm from "./components/UserForm";
 import UserList from "./components/UserList";
 import firebase from "./firebase/config";
-import { connect } from "react-redux";
+import { connect, useDispatch } from "react-redux";
 import { setUsers } from "./actions/actions";
+import { setUser } from "./actions/authActions";
+import Router from "./Router";
 
 function App(props) {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) dispatch(setUser(user));
+      else dispatch(setUser(null));
+    });
+  }, []);
+
   useEffect(() => {
     firebase
       .firestore()
@@ -23,8 +34,7 @@ function App(props) {
 
   return (
     <div>
-      <UserForm />
-      <UserList />
+      <Router />
     </div>
   );
 }
