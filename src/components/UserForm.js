@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { v4 as uuid } from "uuid";
-import firebase from "../firebase/config";
+import { firestore } from "../firebase/config";
 
 //the short way
 // const UserForm = () => {
@@ -62,7 +62,7 @@ const UserForm = (props) => {
       email: email,
     };
 
-    firebase.firestore().collection("users").doc(id).set(newUser);
+    firestore.collection("users").doc(id).set(newUser);
     setName("");
     setEmail("");
   };

@@ -1,6 +1,6 @@
 import React from "react";
 import { Button, Modal } from "react-bootstrap";
-import firebase from "../firebase/config";
+import { firestore } from "../firebase/config";
 
 const User = (props) => {
   const user = props.user;
@@ -19,13 +19,13 @@ const User = (props) => {
       email: email,
     };
 
-    firebase.firestore().collection("users").doc(user.id).update(updatedUser);
+    firestore.collection("users").doc(user.id).update(updatedUser);
 
     handleClose();
   };
 
   const handleDelete = () => {
-    firebase.firestore().collection("users").doc(user.id).delete();
+    firestore.collection("users").doc(user.id).delete();
   };
 
   return (
